@@ -1,0 +1,22 @@
+{
+  "name": "aoc2021",
+  "version": "1.0.0",
+  "description": "Everything old is new again! I haven't really used Ruby for about 10 years but I'm starting a new job where it is heavily used. So to refresh my Ruby colored brain cells I'm going to try to keep up with the [Advent of Code 2021].",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/edsu/aoc2021.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/edsu/aoc2021/issues"
+  },
+  "homepage": "https://github.com/edsu/aoc2021#readme",
+  "dependencies": {
+    "@types/node": "^16.11.11"
+  }
+}
