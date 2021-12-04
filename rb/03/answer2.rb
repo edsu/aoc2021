@@ -1,23 +1,25 @@
 #!/usr/bin/env ruby
 
+def main() 
+  table = get_table('input')
+  p(oxygen(table) * c02(table))
+end
+
 def get_table(filename)
-  table = []
-  File.foreach(filename) do |line|
-    table.push(line.chomp().split('').map(&:to_i))
-  end
-  return table
+  return File.foreach(filename).map { |line| 
+    line.chomp.split('').map(&:to_i)
+  }
 end
 
-def most_common(arr)
-  ratio = arr.count(1) / arr.length.to_f
-  return ratio < 0.5 ? 0 : 1
+def oxygen(table)
+  return filter(table, 'oxygen')
 end
 
-def least_common(arr)
-  return most_common(arr) == 1 ? 0 : 1
+def c02(table)
+  return filter(table, 'c02')
 end
 
-def filter(table, pos, type)
+def filter(table, type, pos=0)
   return table[0].join().to_i(2) if table.length == 1
 
   if type == 'oxygen'
@@ -30,16 +32,16 @@ def filter(table, pos, type)
     row[pos] == n
   end
 
-  return filter(table, pos + 1, type)
+  return filter(table, type, pos + 1)
 end
 
-def oxygen(table)
-  return filter(table, 0, 'oxygen')
+def most_common(arr)
+  ratio = arr.count(1) / arr.length.to_f
+  return ratio < 0.5 ? 0 : 1
 end
 
-def c02(table)
-  return filter(table, 0, 'c02')
+def least_common(arr)
+  return most_common(arr) == 1 ? 0 : 1
 end
 
-table = get_table('input')
-p(oxygen(table) * c02(table))
+main()
