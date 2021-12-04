@@ -12,32 +12,29 @@ def get_table(filename)
 end
 
 def oxygen(table)
-  return filter(table, 'oxygen')
+  return filter(table, method(:most_common))
 end
 
 def c02(table)
-  return filter(table, 'c02')
+  return filter(table, method(:least_common))
 end
 
-def filter(table, type, pos=0)
+def filter(table, criteria, pos=0)
+  # if there's only one row in the table return it converted to an integer
   return table[0].join().to_i(2) if table.length == 1
 
-  if type == 'oxygen'
-    n = most_common(table.transpose[pos])
-  else 
-    n = least_common(table.transpose[pos])
-  end
+  # find the bit criteria at the given position to filter by
+  n = criteria.call(table.transpose[pos])
 
-  table = table.select do |row|
-    row[pos] == n
-  end
+  # remove any rows that don't match our criteria at the given position
+  table = table.select { |row| row[pos] == n }
 
-  return filter(table, type, pos + 1)
+  # return the result of filtering the table based on the next position
+  return filter(table, criteria, pos + 1)
 end
 
 def most_common(arr)
-  ratio = arr.count(1) / arr.length.to_f
-  return ratio < 0.5 ? 0 : 1
+  return arr.count(1) / arr.length.to_f < 0.5 ? 0 : 1
 end
 
 def least_common(arr)
