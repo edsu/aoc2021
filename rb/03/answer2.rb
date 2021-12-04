@@ -2,13 +2,17 @@
 
 def main() 
   table = get_table('input')
-  p(oxygen(table) * c02(table))
+  p(power(table))
 end
 
 def get_table(filename)
   return File.foreach(filename).map { |line| 
     line.chomp.split('').map(&:to_i)
   }
+end
+
+def power(table)
+  return oxygen(table) * c02(table)
 end
 
 def oxygen(table)
