@@ -20,16 +20,11 @@ def c02(table)
 end
 
 def filter(table, criteria, pos=0)
-  # if there's only one row in the table return it converted to an integer
   return table[0].join().to_i(2) if table.length == 1
 
-  # find the bit criteria at the given position to filter by
   n = criteria.call(table.transpose[pos])
-
-  # remove any rows that don't match our criteria at the given position
   table = table.select { |row| row[pos] == n }
 
-  # return the result of filtering the table based on the next position
   return filter(table, criteria, pos + 1)
 end
 
