@@ -68,7 +68,7 @@ class Board
       end
     end
 
-    @played.transpose do |row|
+    @played.transpose.each do |row|
       if row.sum == 5
         return true
       end
