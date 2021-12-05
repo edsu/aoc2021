@@ -1,6 +1,4 @@
 class Game
-  attr_reader :numbers
-  attr_reader :boards
 
   def initialize(filename)
     @numbers = nil
