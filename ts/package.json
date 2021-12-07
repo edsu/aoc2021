@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/edsu/aoc2021#readme",
   "dependencies": {
-    "@types/node": "^16.11.11"
+    "@types/lodash": "^4.14.177",
+    "@types/node": "^16.11.11",
+    "lodash": "^4.17.21"
   }
 }
