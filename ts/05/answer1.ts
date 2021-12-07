@@ -105,12 +105,6 @@ class Line {
     return `${this.point1} -> ${this.point2}`
   }
 
-  length(): number {
-    const p1 = this.point1;
-    const p2 = this.point2;
-    return Math.sqrt(Math.pow(p2.x - p1.x, 2) + Math.pow(p2.y - p1.y, 2)) 
-  }
-
   minX(): number {
     return this.point1.x < this.point2.x ? this.point1.x : this.point2.x;
   }

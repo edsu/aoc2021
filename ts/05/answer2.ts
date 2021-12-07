@@ -89,10 +89,10 @@ class Line {
   points(): Point[] {
     let points = []
     if (this.horizontal()) {
-      return irange(this.minX(), this.maxX())
+      return irange(this.point1.x, this.point2.x)
         .map(x => new Point([x, this.point1.y]));
     } else if (this.vertical()) {
-      return irange(this.minY(), this.maxY())
+      return irange(this.point1.y, this.point2.y)
         .map(y => new Point([this.point1.x, y]))
     } else {
       const xs: number[] = irange(this.point1.x, this.point2.x);
@@ -104,22 +104,6 @@ class Line {
 
   toString() {
     return `${this.point1} -> ${this.point2}`
-  }
-
-  minX(): number {
-    return this.point1.x < this.point2.x ? this.point1.x : this.point2.x;
-  }
-
-  minY(): number {
-    return this.point1.y < this.point2.y ? this.point1.y : this.point2.y;
-  }
-
-  maxX(): number {
-    return this.point1.x > this.point2.x ? this.point1.x : this.point2.x;
-  }
-
-  maxY(): number {
-    return this.point1.y > this.point2.y ? this.point1.y : this.point2.y;
   }
 
   horizontal(): boolean {
