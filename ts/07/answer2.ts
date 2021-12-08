@@ -3,9 +3,7 @@ import { sum, range } from 'lodash';
 
 function main() {
   const data = getData('input');
-  const start = Math.min(...data);
-  const end = Math.max(...data);
-  const pos = getPos(data, start, end);
+  const pos = getPos(data, Math.min(...data), Math.max(...data));
   console.log(`position ${pos} is cheapest with fuel of ${getFuel(data, pos)}`);
 }
 
