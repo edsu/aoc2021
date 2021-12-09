@@ -2,13 +2,6 @@
 
 require 'set'
 
-data = File
-        .foreach('input')
-        .map do |line| 
-          row = line.chomp.split(' | ')
-          [row[0].split(' ').map {|d| Set.new(d.split(''))}, row[1].split(' ')]
-        end
-
 def decode(displays) 
   numbers = {}
   while true
@@ -44,6 +37,13 @@ def decode(displays)
   end
   return numbers.invert
 end
+
+data = File
+        .foreach('input')
+        .map do |line| 
+          row = line.chomp.split(' | ')
+          [row[0].split(' ').map {|d| Set.new(d.split(''))}, row[1].split(' ')]
+        end
 
 sum = 0
 for row in data
