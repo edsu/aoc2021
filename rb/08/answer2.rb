@@ -1,5 +1,4 @@
-# note: I'm not at all happy with the readability of this
-# struggling to keep up!
+# note: I'm not at all happy with the readability of this & am struggling to keep up!
 
 require 'set'
 
