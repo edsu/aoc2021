@@ -18,33 +18,33 @@ class Point {
 
 function main() {
 
-  // get the data
-  const grid: number[][] = getGrid('input');
+  // get the map
+  const map: number[][] = getMap('input');
 
-  // get the low points in the grid
-  const lowPoints = getLowPoints(grid);
+  // get the low points in the map
+  const lowPoints = getLowPoints(map);
 
   // examine each low point to get the extent of the basin it's a part of
   const basins = []
   for (const point of lowPoints) {
-    basins.push(getBasin(grid, point))
+    basins.push(getBasin(map, point))
   }
 
   // output the score!
   console.log(score(basins));
 }
 
-function getGrid(filename: string): number[][] {
+function getMap(filename: string): number[][] {
   const s: string = readFileSync(filename, {encoding: 'utf8'});
   return s.split('\n').map(s => s.split('').map(s => parseInt(s)));
 }
 
-function getLowPoints(grid: number[][]): Point[] {
-  const flipped: number[][] = transpose(grid);
+function getLowPoints(map: number[][]): Point[] {
+  const flipped: number[][] = transpose(map);
   const lowPoints: Point[] = [];
-  for (let y = 0; y < grid.length; y += 1) {
-    for (let x = 0; x < grid[0].length; x += 1) {
-      if (isSmallest(x, grid[y]) && isSmallest(y, flipped[x])) {
+  for (let y = 0; y < map.length; y += 1) {
+    for (let x = 0; x < map[0].length; x += 1) {
+      if (isSmallest(x, map[y]) && isSmallest(y, flipped[x])) {
         lowPoints.push(new Point(x, y));
       }
     }
@@ -52,43 +52,43 @@ function getLowPoints(grid: number[][]): Point[] {
   return lowPoints;
 }
 
-function isSmallest(i: number, data: number[]) {
-  if (i > 0 && i < data.length - 1) {
-    return (data[i] < data[i - 1]) && (data[i] < data[i + 1]);
+function isSmallest(i: number, map: number[]) {
+  if (i > 0 && i < map.length - 1) {
+    return (map[i] < map[i - 1]) && (map[i] < map[i + 1]);
   } else if (i == 0) {
-    return data[i] < data[i + 1];
+    return map[i] < map[i + 1];
   } else {
-    return data[i] < data[i - 1];
+    return map[i] < map[i - 1];
   }
 }
 
-function getBasin(data: number[][], p: Point): Basin {
+function getBasin(map: number[][], p: Point): Basin {
   const basin: Basin = [];
-  walkBasin(data, p, basin);
+  walkBasin(map, p, basin);
   return basin;
 }
 
-function walkBasin(data: number[][], p: Point, basin: Basin): void {
+function walkBasin(map: number[][], p: Point, basin: Basin): void {
   // we've been here before
   if (basin.find(e => e.equals(p))) return
 
   // found a ridge
-  if (data[p.y][p.x] == 9) return 
+  if (map[p.y][p.x] == 9) return 
 
   // ok we found part of the basin
   basin.push(p);
 
   // walk left
-  if (p.x > 0) walkBasin(data, new Point(p.x - 1, p.y), basin);
+  if (p.x > 0) walkBasin(map, new Point(p.x - 1, p.y), basin);
 
   // walk right
-  if (p.x < data[0].length - 1) walkBasin(data, new Point(p.x + 1, p.y), basin);
+  if (p.x < map[0].length - 1) walkBasin(map, new Point(p.x + 1, p.y), basin);
 
   // walk down
-  if (p.y > 0) walkBasin(data, new Point(p.x, p.y - 1), basin);
+  if (p.y > 0) walkBasin(map, new Point(p.x, p.y - 1), basin);
 
   // walk up
-  if (p.y < data.length - 1) walkBasin(data, new Point(p.x, p.y + 1), basin)
+  if (p.y < map.length - 1) walkBasin(map, new Point(p.x, p.y + 1), basin)
 } 
 
 function score(basins: Basin[]) {
