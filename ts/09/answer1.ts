@@ -7,8 +7,8 @@ function main() {
   const lowPoints: number[] = [];
 
   for (let y = 0; y < grid.length; y += 1) {
-    for (let x = 0; x < flipped.length; x += 1) {
-      if (isSmallest(y, flipped[x]) && isSmallest(x, grid[y])) {
+    for (let x = 0; x < grid[0].length; x += 1) {
+      if (isSmallest(x, grid[y]) && isSmallest(y, flipped[x])) {
         lowPoints.push(grid[y][x]);
       }
     }
@@ -19,7 +19,7 @@ function main() {
 
 function isSmallest(i: number, data: number[]) {
   if (i > 0 && i < data.length - 1) {
-    return data[i] < data[i - 1] && data[i] < data[i + 1];
+    return (data[i] < data[i - 1]) && (data[i] < data[i + 1]);
   } else if (i == 0) {
     return data[i] < data[i + 1];
   } else {
