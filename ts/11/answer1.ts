@@ -32,12 +32,11 @@ function incrementGrid(grid: Grid) {
 
 function flash(grid: Grid, cell: Cell): boolean {
   if (grid[cell.y][cell.x] == 10) {
-    console.log(`flashed ${colNum},${rowNum}`)
     grid[cell.y][cell.x] = 11;
     for (let y = cell.y - 1; y <= cell.y; y += 1) {
       for (let x = cell.x - 1; x <= cell.x; x += 1) {
         if (y >= 0 && y < grid.length && x >= 0 && x < grid[0].length) {
-          flash(grid, {y, x});
+          flash(grid, {y, x, value: grid[y][x]});
         }
       }
     }

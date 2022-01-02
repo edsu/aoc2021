@@ -1,9 +1,11 @@
-OPENING_CHARS = ['[', '(', '{', '<']
-CLOSING_CHARS = [']', ')', '}', '>']
+# frozen_string_literal: true
 
-def main() 
+OPENING_CHARS = ['[', '(', '{', '<'].freeze
+CLOSING_CHARS = [']', ')', '}', '>'].freeze
+
+def main
   scores = []
-  get_lines('input').each do |line| 
+  get_lines('input').each do |line|
     compl = completion(line)
     scores << get_score(compl) if compl
   end
@@ -18,42 +20,31 @@ end
 
 def completion(line)
   stack = []
-  for ch in line
+  line.each do |ch|
     if OPENING_CHARS.include?(ch)
       stack.push(ch)
     else
       open_ch = stack.pop
-      if ch != closing_char(open_ch)
-        return nil
-      end
+      return nil if ch != closing_char(open_ch)
     end
   end
-  return stack.map {|ch| closing_char(ch)}.reverse
+  stack.map { |c| closing_char(c) }.reverse
 end
 
-def closing_char(ch) 
-  return CLOSING_CHARS[OPENING_CHARS.find_index(ch)]
+def closing_char(char)
+  CLOSING_CHARS[OPENING_CHARS.find_index(char)]
 end
 
 def get_score(chars)
   score = 0
-  for ch in chars
+  chars.each do |ch|
     score = score * 5 + char_points(ch)
   end
-  return score
+  score
 end
 
-def char_points(ch)
-  case ch
-  when ')'
-    1
-  when ']'
-    2 
-  when '}'
-    3
-  when '>'
-    4
-  end
+def char_points(char)
+  { ')': 1, ']': 2, '}': 3, '>': 4 }[char]
 end
 
-main()
+main

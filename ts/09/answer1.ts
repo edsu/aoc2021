@@ -33,7 +33,7 @@ function getGrid(filename: string): number[][] {
 }
 
 function transpose(a: any[][]): any[][] {
-  return a[0].map((y,i) => a.map(y => y[i]));
+  return a[0].map((_,i) => a.map(y => y[i]));
 }
 
 main();
